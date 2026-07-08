@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bifrost\DataTypes\Brazil;
+namespace Elavora\Api\DataTypes\Brazil;
 
-use Bifrost\DataTypes\AbstractDataType;
+use Elavora\Api\DataTypes\AbstractDataType;
 
 final readonly class Cpf extends AbstractDataType
 {
