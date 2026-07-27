@@ -13,8 +13,8 @@ final readonly class Cpf extends AbstractDataType
      */
     public static function isValid(mixed $value): bool
     {
-        $digits = self::digits($value);
-        if (strlen($digits) !== 11 || preg_match('/^(\d)\1{10}$/', $digits) === 1) {
+        $digits = self::canonical($value);
+        if ($digits === null || preg_match('/^([0-9])\1{10}\z/', $digits) === 1) {
             return false;
         }
 
@@ -35,11 +35,23 @@ final readonly class Cpf extends AbstractDataType
 
     protected static function normalize(mixed $value): string
     {
-        return self::digits($value);
+        return self::canonical($value) ?? '';
     }
 
-    private static function digits(mixed $value): string
+    private static function canonical(mixed $value): ?string
     {
-        return preg_replace('/\D/', '', (string) $value) ?? '';
+        if (!is_string($value)) {
+            return null;
+        }
+
+        if (preg_match('/^[0-9]{11}\z/', $value) === 1) {
+            return $value;
+        }
+
+        if (preg_match('/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}\z/', $value) !== 1) {
+            return null;
+        }
+
+        return str_replace(['.', '-'], '', $value);
     }
 }
