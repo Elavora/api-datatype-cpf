@@ -12,7 +12,7 @@ final class CpfTest extends TestCase
 {
     public function testValidatesCpf(): void
     {
-        self::assertSame('52998224725', new Cpf('529.982.247-25')->value());
+        self::assertSame('52998224725', (new Cpf('529.982.247-25'))->value());
         self::assertFalse(Cpf::isValid('111.111.111-11'));
     }
 
