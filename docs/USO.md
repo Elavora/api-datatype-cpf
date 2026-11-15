@@ -19,7 +19,7 @@ composer require elavora/api-datatype-cpf
 ```php
 use Elavora\Api\DataTypes\Brazil\Cpf;
 
-$cpf = Cpf::from('529.982.247-25');
+$cpf = new Cpf('529.982.247-25');
 
 $cpf->value();                  // '52998224725'
 (string) $cpf;                  // '52998224725'
@@ -27,7 +27,7 @@ json_encode($cpf);              // '"52998224725"'
 Cpf::isValid('52998224725');  // true
 ```
 
-O construtor não é público: crie sempre por `Cpf::from()`.
+O construtor não é público: crie sempre por `new Cpf()`.
 
 ## Versão e compatibilidade
 
@@ -44,7 +44,7 @@ ou superior.
 
 **Quebra de compatibilidade:** no `elavora/api-datatype-core` 2 o construtor de `AbstractDataType` é
 `final protected`, então `new Cpf('52998224725')` deixa de funcionar fora da própria classe. Troque por
-`Cpf::from('52998224725')`. `Cpf::isValid()` e `value()` continuam iguais.
+`new Cpf('52998224725')`. `Cpf::isValid()` e `value()` continuam iguais.
 
 ### `composer.json`
 
@@ -62,7 +62,7 @@ O `composer.json` do pacote deve ter:
 
 ## Criação e entrada inválida
 
-`Elavora\Api\DataTypes\Brazil\Cpf::from(mixed $value): static` valida o valor com `isValid()` e devolve um `Cpf`
+`Elavora\Api\DataTypes\Brazil\new Cpf(mixed $value): static` valida o valor com `isValid()` e devolve um `Cpf`
 com o valor normalizado (só os 11 dígitos). Se o valor for inválido, lança `\InvalidArgumentException` com a mensagem
 `Valor invalido para Elavora\Api\DataTypes\Brazil\Cpf.`
 
@@ -70,7 +70,7 @@ com o valor normalizado (só os 11 dígitos). Se o valor for inválido, lança `
 use Elavora\Api\DataTypes\Brazil\Cpf;
 
 try {
-    Cpf::from('52998224726'); // dígito verificador errado
+    new Cpf('52998224726'); // dígito verificador errado
 } catch (\InvalidArgumentException $e) {
     echo $e->getMessage(); // Valor invalido para Elavora\Api\DataTypes\Brazil\Cpf.
 }
@@ -118,7 +118,7 @@ Contraexemplo (comportamento que não vale mais): `new Cpf('52998224725')` funci
 
 ## Dependências de runtime
 
-- `elavora/api-datatype-core` `^2.0`
+- `elavora/api-datatype-core` `^3.0`
 
 ## Validação do pacote
 
