@@ -13,11 +13,11 @@ use Elavora\Api\DataTypes\Brazil\Cpf;
 
 Cpf::isValid('52998224725'); // true
 
-$cpf = Cpf::from('529.982.247-25');
+$cpf = new Cpf('529.982.247-25');
 $cpf->value(); // '52998224725'
 ```
 
-Entrada inválida em `Cpf::from()` lança `InvalidArgumentException`.
+Entrada inválida em `new Cpf()` lança `InvalidArgumentException`.
 
 Especificação completa, exemplos e validação local: [docs/USO.md](docs/USO.md).
 
@@ -30,11 +30,11 @@ composer require elavora/api-datatype-cpf
 Requisitos:
 
 - PHP 8.3 ou superior.
-- `elavora/api-datatype-core` `^2.0` (que traz o `elavora/api-framework` `^2.0`).
+- `elavora/api-datatype-core` `^3.0` (que traz o `elavora/api-framework` `^3.0`).
 
 Versão `1.0`: atualiza o pacote para o `elavora/api-datatype-core` 2.0, que substitui o `^0.1`, e passa a exigir
 PHP 8.3 ou superior. **Quebra:** o construtor deixa de ser público (no core 2 ele é `final protected`),
-então `new Cpf(...)` não funciona mais; use `Cpf::from(...)`. `isValid()` e `value()` não mudam.
+então `new Cpf(...)` não funciona mais; use `new Cpf(...)`. `isValid()` e `value()` não mudam.
 
 ## Desenvolvimento e testes
 

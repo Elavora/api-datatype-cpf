@@ -12,7 +12,7 @@ final class CpfTest extends TestCase
 {
     public function testValidatesCpf(): void
     {
-        self::assertSame('52998224725', Cpf::from('529.982.247-25')->value());
+        self::assertSame('52998224725', new Cpf('529.982.247-25')->value());
         self::assertFalse(Cpf::isValid('111.111.111-11'));
     }
 
@@ -63,7 +63,7 @@ final class CpfTest extends TestCase
     #[DataProvider('normalizadoProvider')]
     public function testFromNormalizaSoOsDigitos(mixed $value, string $expected): void
     {
-        $cpf = Cpf::from($value);
+        $cpf = new Cpf($value);
 
         self::assertSame($expected, $cpf->value());
         self::assertSame($expected, (string) $cpf);
@@ -94,7 +94,7 @@ final class CpfTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Valor invalido para Elavora\Api\DataTypes\Brazil\Cpf.');
 
-        Cpf::from($value);
+        new Cpf($value);
     }
 
     public function testConstrutorNaoEPublico(): void
