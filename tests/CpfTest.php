@@ -97,11 +97,11 @@ final class CpfTest extends TestCase
         new Cpf($value);
     }
 
-    public function testConstrutorNaoEPublico(): void
+    public function testConstrutorEPublico(): void
     {
         $construtor = (new \ReflectionClass(Cpf::class))->getConstructor();
 
         self::assertNotNull($construtor);
-        self::assertFalse($construtor->isPublic());
+        self::assertTrue($construtor->isPublic());
     }
 }
