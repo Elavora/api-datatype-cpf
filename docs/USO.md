@@ -116,6 +116,19 @@ Contraexemplo (comportamento que não vale mais): `new Cpf('52998224725')` funci
 
 - `Elavora\Api\DataTypes\Brazil\Cpf` (`final readonly`, herda de `Elavora\Api\DataTypes\AbstractDataType`)
 
+## Documentação do tipo (OPTIONS)
+
+`Cpf` implementa `Elavora\Api\Framework\Contracts\DescribesType`. O `OPTIONS` público da API usa
+`Cpf::documentedType()` para documentar o campo sem expor o nome da classe PHP. Declara:
+
+- `type`: `string`
+- `mask`: `000.000.000-00`
+- `pattern`: `^(\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})$` (com máscara ou só os 11 dígitos)
+- `example`: `529.982.247-25`
+- `description`: CPF com ou sem máscara; `value()` devolve apenas os 11 dígitos
+
+A validação continua sendo feita por `isValid()`; o `pattern` só descreve o formato.
+
 ## Dependências de runtime
 
 - `elavora/api-datatype-core` `^4.0`
