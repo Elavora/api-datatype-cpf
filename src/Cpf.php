@@ -5,9 +5,26 @@ declare(strict_types=1);
 namespace Elavora\Api\DataTypes\Brazil;
 
 use Elavora\Api\DataTypes\AbstractDataType;
+use Elavora\Api\Framework\Contracts\DescribesType;
 
-final readonly class Cpf extends AbstractDataType
+final readonly class Cpf extends AbstractDataType implements DescribesType
 {
+    /**
+     * Descreve o tipo para a documentacao publica (OPTIONS).
+     *
+     * @return array<string, mixed>
+     */
+    public static function documentedType(): array
+    {
+        return [
+            'type' => 'string',
+            'mask' => '000.000.000-00',
+            'pattern' => '^(\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})$',
+            'example' => '529.982.247-25',
+            'description' => 'CPF com ou sem mascara; value() devolve apenas os 11 digitos.',
+        ];
+    }
+
     /**
      * Verifica se o valor e um CPF valido.
      */
